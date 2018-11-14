@@ -7,7 +7,6 @@ node {
         nvidiaDockerSlavesNode(image: 'gpuci/rapidsai-base:cuda9.2-ubuntu16.04-gcc5-py3.5') {
             checkout scm
             def styleCheck = """#!/bin/bash
-            export PATH=\$PATH:/conda/bin
             env
             ls -la /
             ls -la \$HOME
