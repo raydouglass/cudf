@@ -3,7 +3,7 @@ def notify(context, description, status, targetUrl){
     githubNotify account: account, context: context, credentialsId: 'gputester-username-api-token', description: description, gitApiUrl: '', repo: repo, sha: env.ghprbActualCommit, status: status, targetUrl: targetUrl
 }
 
-node('master') {
+node('gpu-v100') {
     stage('Style Check') {
         nvidiaDockerSlavesNode(image: 'gpuci/rapidsai-base:cuda9.2-ubuntu16.04-gcc5-py3.5', sideContainers: ['']) {
             checkout scm
