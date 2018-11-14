@@ -6,8 +6,8 @@ node {
     stage('Style Check') {
         nvidiaDockerSlavesNode(image: 'gpuci/rapidsai-base:cuda9.2-ubuntu16.04-gcc5-py3.5') {
             checkout scm
-            sh 'export PATH=$PATH:/conda/bin'
             def styleCheck = """
+            export PATH=\$PATH:/conda/bin
             source activate gdf
             conda install flake8 -y
             flake8
