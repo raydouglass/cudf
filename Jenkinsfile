@@ -10,8 +10,8 @@ node {
             export PATH=\$PATH:/conda/bin
             env
             ls -la /
-            ls -la $HOME
-            ls -la $WORKSPACE
+            ls -la \$HOME
+            ls -la \$WORKSPACE
             source activate gdf
             conda install flake8 -y
             flake8
