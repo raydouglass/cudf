@@ -7,11 +7,12 @@ node('master') {
     stage('Style Check') {
         nvidiaDockerSlavesNode(image: 'gpuci/rapidsai-base:cuda9.2-ubuntu16.04-gcc5-py3.5', sideContainers: ['']) {
             checkout scm
-            def statusCode = sh script:"""
+            def styleCheck = """
             source activate gdf
             conda install flake8 -y
             flake8
-            """, returnStatus:true
+            """
+            def statusCode = sh script:styleCheck, returnStatus:true
             if(statusCode == 0) {
                 notify('gpuCI/style','Style Check Passed','SUCCESS','')
             } else {
