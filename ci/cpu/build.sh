@@ -75,19 +75,21 @@ fi
 if [ "$BUILD_LIBCUDF" == '1' ]; then
   gpuci_logger "Build conda pkg for libcudf"
   gpuci_conda_retry build --no-build-id --croot ${CONDA_BLD_DIR} conda/recipes/libcudf $CONDA_BUILD_ARGS
-  mkdir -p ${CONDA_BLD_DIR}/libcudf/work
-  cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf/work
-
 
   gpuci_logger "Build conda pkg for libcudf_kafka"
   gpuci_conda_retry build --no-build-id --croot ${CONDA_BLD_DIR} conda/recipes/libcudf_kafka $CONDA_BUILD_ARGS
-  mkdir -p ${CONDA_BLD_DIR}/libcudf_kafka/work
-  cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf_kafka/work
 
   gpuci_logger "Building libcudf examples"
   gpuci_conda_retry build --no-build-id --croot ${CONDA_BLD_DIR} conda/recipes/libcudf_example $CONDA_BUILD_ARGS
-  mkdir -p ${CONDA_BLD_DIR}/libcudf_example/work
-  cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf_example/work
+  
+  if [[ "$PROJECT_FLASH" == "1" ]]; then
+    mkdir -p ${CONDA_BLD_DIR}/libcudf/work
+    cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf/work
+    mkdir -p ${CONDA_BLD_DIR}/libcudf_kafka/work
+    cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf_kafka/work
+    mkdir -p ${CONDA_BLD_DIR}/libcudf_example/work
+    cp -r ${CONDA_BLD_DIR}/work/* ${CONDA_BLD_DIR}/libcudf_example/work
+  fi
 fi
 
 if [ "$BUILD_CUDF" == '1' ]; then
